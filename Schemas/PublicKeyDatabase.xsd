@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/PublicKeyDatabase" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:peerBook="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/PublicKeyDatabase">
+
+    <element name="publicKeyDatabase"
+    	type="peerBook:publicKeyDatabase">
+    </element>
+    
+    <complexType name="publicKeyDatabase">
+    	<sequence>
+    		<element name="keyMapping" type="peerBook:keyMapping" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="keyMapping">
+    	<sequence>
+    		<element name="username" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="publicKey" type="peerBook:keyBytes"
+    			maxOccurs="1" minOccurs="1">
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="keyBytes">
+    	<sequence>
+    		<element name="keyByte" type="byte" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

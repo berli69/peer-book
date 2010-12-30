@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/PublicProfile" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:peerBook="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/PublicProfile">
+
+    <element name="publicProfile" type="peerBook:publicProfile"/>
+    
+    <complexType name="publicProfile">
+    	<sequence>
+    		<element name="personalData" type="peerBook:personalData" maxOccurs="1" minOccurs="1"/>
+    		<element name="friendList" type="peerBook:friendList" maxOccurs="1" minOccurs="1"/>
+    		<element name="wallPosts" type="peerBook:wallPosts" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="personalData">
+    	<sequence>
+    		<element name="name" type="string" maxOccurs="1"
+    			minOccurs="1" />
+            <element name="currentStatus" type="peerBook:statusPost" maxOccurs="1" minOccurs="0"></element>
+            <element name="dateOfBirth" type="date" maxOccurs="1"
+    			minOccurs="0" />
+    		<element name="emailAddress" type="string" maxOccurs="5"
+    			minOccurs="0" />
+    		<element name="phone" type="string" maxOccurs="1"
+    			minOccurs="0" />
+    		<element name="address" type="string" maxOccurs="1"
+    			minOccurs="0" />
+    		<element name="course" type="string" maxOccurs="1"
+    			minOccurs="0" />
+    		<element name="homeTown" type="string" maxOccurs="1"
+    			minOccurs="0" />
+    		<element name="interests" type="string" maxOccurs="1"
+    			minOccurs="0" />
+    	</sequence>
+    </complexType>
+
+    
+    <complexType name="friendList">
+    	<sequence>
+    		<element name="friend" type="peerBook:friend" maxOccurs="unbounded" minOccurs="0"/>
+    	</sequence>
+    </complexType>
+
+    <complexType name="friend">
+    	<sequence>
+    		<element name="friendName" type="string" maxOccurs="1" minOccurs="1"/>
+    	</sequence>
+    </complexType>
+
+
+    <complexType name="wallPosts">
+    	<sequence>
+    		<element name="wallPostCounter" type="integer" maxOccurs="1" minOccurs="1"></element>
+    		<element name="wallPost" type="peerBook:wallPost" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="wallPost">
+    	<sequence>
+    		<element name="number" type="integer" maxOccurs="1" minOccurs="1"></element>
+            <element name="postDate" type="dateTime" maxOccurs="1" minOccurs="1"></element>
+            <element name="username" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="post" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="statusPost">
+    	<sequence>
+    		<element name="postDate" type="dateTime" maxOccurs="1" minOccurs="1"></element>
+    		<element name="status" type="string" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

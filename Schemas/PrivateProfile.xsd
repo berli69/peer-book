@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/PrivateProfile" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:peerBook="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/PrivateProfile">
+
+    <element name="privateProfile" type="peerBook:privateProfile" />
+
+    <complexType name="privateProfile">
+    	<sequence>
+    		<element name="sharedProfileKey" type="peerBook:keyBytes"
+    			maxOccurs="1" minOccurs="1" />
+    		<element name="friendKeyList" type="peerBook:friendKeyList"
+    			maxOccurs="1" minOccurs="1" />
+    		<element name="personalKeyPair" type="peerBook:keyPair"
+    			maxOccurs="1" minOccurs="1" />
+    		<element name="privateMessageList"
+    			type="peerBook:privateMessageList" maxOccurs="1" minOccurs="1" />
+    		<element name="friendRequestList" type="peerBook:friendRequestList" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="friendKeyList">
+    	<sequence>
+    		<element name="friendKey" type="peerBook:friendKeyMapping" maxOccurs="unbounded" minOccurs="0"/>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="friendKeyMapping">
+    	<sequence>
+    		<element name="name" type="string" maxOccurs="1" minOccurs="1"/>
+    		<element name="sharedProfileKey" type="peerBook:keyBytes" maxOccurs="1" minOccurs="1"/>
+    	</sequence>
+    </complexType>
+
+    <complexType name="keyPair">
+    	<sequence>
+    		<element name="publicKey" type="peerBook:keyBytes" maxOccurs="1" minOccurs="1"/>
+    		<element name="privateKey" type="peerBook:keyBytes" maxOccurs="1" minOccurs="1"/>
+    	</sequence>
+    </complexType>
+    
+    <complexType name="privateMessageList">
+    	<sequence>
+    		<element name="privateMessageCounter" type="integer" maxOccurs="1" minOccurs="1"/>
+    		<element name="privateMessage" type="peerBook:privateMessage" maxOccurs="unbounded" minOccurs="0"/>
+    	</sequence>
+    </complexType>
+
+    <complexType name="privateMessage">
+    	<sequence>
+    		<element name="number" type="integer" maxOccurs="1" minOccurs="1"/>
+            <element name="sentDate" type="dateTime" maxOccurs="1" minOccurs="1"></element>
+            <element name="fromName" type="string" maxOccurs="1" minOccurs="1"/>
+    		<element name="message" type="string" maxOccurs="1" minOccurs="1"/>
+    	</sequence>
+    </complexType>
+
+    <complexType name="keyBytes">
+    	<sequence>
+    		<element name="keyByte" type="byte" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="friendRequestList">
+    	<sequence>
+    		<element name="friendRequestCounter" type="integer" maxOccurs="1" minOccurs="1"/>
+    		<element name="friendRequest" type="peerBook:friendRequest" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="friendRequest">
+    	<sequence>
+    		<element name="number" type="integer" maxOccurs="1" minOccurs="1"/>
+    		<element name="username" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="sharedProfileKey" type="peerBook:keyBytes" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>
