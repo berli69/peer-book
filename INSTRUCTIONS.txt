@@ -1,0 +1,27 @@
+Instructions:
+1) Check out a copy of the code from SVN.
+2) Open Terminal, navigate to the folder top level folder (should contain this file).
+3) Run the command "ant run" (you must have Apache Ant installed). This will start a Java RMI server on the default port of 55059, and a web server on the default port of 7654. If you would like to change these ports, follow the (extra) instructions at the bottom of this file.
+4) You can now access PeerBook through your browser; point it to http://localhost:7654/
+
+Now this will have started a PeerBook network of just one node, which you can test by making profiles/sending messages etc. You may wish to look inside the folders that PeerBook will have created - "PublicProfiles", "PrivateProfiles", etc. These will contain anything you create using the interface, but you will notice that they're all entirely encrypted.
+
+You may want to test with more than one node. You can do this by altering the arguments given to PeerBook upon startup (arguments can also be used to define different ports for use). The possible arguments that you might want to use are:
+
+-s <IP_address>:<port>
+This tells PeerBook that instead of creating a new network it should connect to another - and the connection details provided are for one of the machines in that network (the port number required here is the RMI one of the other machine, not the web one).
+
+-p <port>
+This gives PeerBook a port to try to run its RMI server on.
+
+-b <port>
+This gives PeerBook a port to try to run its web server on.
+
+These arguments may be given to PeerBook in the following way. Instead of running the command:
+     ant run
+instead do this:
+     ant run -Dargs="<args>"
+where <args> refers to a string of arguments. For example, the following would run the client, connect to an existing node whose IP address and port are 10.0.0.1:3456 and run the local RMI server on port 5903:
+     ant run -Dargs="-s 10.0.0.1:3456 -p 5903"
+
+In this way you can run several clients on one machine, connected into one network for testing.
