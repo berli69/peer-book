@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/Message" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:peerBook="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/Message">
+
+    <element name="message" type="peerBook:message"></element>
+    
+    <complexType name="message">
+    	<sequence>
+    		<element name="fromUserName" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="toUserName" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="messageType" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="dateSent" type="dateTime" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="messageBody" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="key" type="peerBook:keyBytes" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="keyBytes">
+    	<sequence>
+    		<element name="keyByte" type="byte" maxOccurs="unbounded" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>

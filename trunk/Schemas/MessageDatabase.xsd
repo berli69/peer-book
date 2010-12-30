@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/MessageDatabase" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:peerBook="http://host-brb5.cs.st-andrews.ac.uk/PeerBook/MessageDatabase">
+
+    <element name="messageDatabase" type="peerBook:messageDatabase"></element>
+    
+    <complexType name="messageDatabase">
+    	<sequence>
+    		<element name="messageCount" type="peerBook:messageCount" maxOccurs="unbounded" minOccurs="0"></element>
+    	</sequence>
+    </complexType>
+
+    <complexType name="messageCount">
+    	<sequence>
+    		<element name="username" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="count" type="int" maxOccurs="1" minOccurs="1"></element>
+    	</sequence>
+    </complexType>
+</schema>
