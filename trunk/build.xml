@@ -1,0 +1,84 @@
+<project name="PeerBook" basedir="." default="main">
+<!-- Here are project dependent properties -->
+	<property name="peerbook-client-class"  value="uk.ac.stand.cs.brb5.impl.PeerBookClient"/>			<!-- The main class -->
+	<property name="public-key-database-server-class" value="uk.ac.stand.cs.brb5.impl.PublicKeyDatabaseServer"/>
+
+<!-- Global properties -->
+	<property name="javadoc.dir"   value="javadoc"/>	<!-- The directory where the javadoc is stored -->
+	<property name="src.dir"       value="src"/>			<!-- The directory where the source code is kept -->
+	<property name="lib.dir"       value="lib"/>			<!-- The directory where any additional libaries are kept -->
+	<property name="build.dir"     value="build"/>			<!-- The directory where the project is built -->
+	<property name="classes.dir"   value="${build.dir}/classes"/>	<!-- The directory to store the compiled classes -->
+	<property name="jar.dir"       value="${build.dir}/jar"/>	<!-- The directory to store the created jar file -->
+	<property name="pubPro.dir"    value="PublicProfiles"/>	<!-- The directory in which Public Profiles are stored -->
+	<property name="priPro.dir"    value="PrivateProfiles"/>	<!-- The directory in which Private Profiles are stored -->
+	<property name="message.dir"   value="Messages"/>	<!-- The directory in which Messages are stored -->
+	<property name="pubkdb.dir"    value="PublicKeyDatabase"/>	<!-- The directory in which the Public Key database is stored -->
+	<property name="dir"    	   value="./"/>	<!-- The default directory to run PeerBook in. -->
+	<property name="args"   	   value=""/>	<!-- The default arguments to give PeerBook. -->
+
+	<path id="classpath"> <!-- Set the classpath used for compiling. Every jar in ${lib.dir} is included -->
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+
+	<path id="classpath.runtime"> <!-- Set the classpath used for running. Every jar in ${lib.jar} is included as well as the jar created from the project source -->
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+		<fileset dir="${jar.dir}" includes="**/*.jar"/>
+	</path>
+
+	<target name="clean" description="Removes all the class files">
+		<delete dir="${build.dir}"/>
+		<delete dir="${javadoc.dir}"/>
+		<delete dir="${pubPro.dir}"/>
+		<delete dir="${priPro.dir}"/>
+		<delete dir="${message.dir}"/>
+		<delete dir="${pubkdb.dir}"/>
+	</target>
+
+	<target name="run" depends="jar" description="Run PeerBook"> <!-- Run like so: 'ant run -Dargs="<PeerBook arguments here>"' -->
+		<echo>Running PeerBook: args="${args}" dir="${dir}"</echo>
+		<java classpathref="classpath.runtime" classname="${peerbook-client-class}" fork="true" dir="${dir}">
+			<arg line="${args}"/>
+		</java>		
+	</target>
+
+	<target name="runPublicKeyDatabase" depends="jar" description="Run PeerBook"> <!-- Run like so: 'ant runPublicKeyDatabase -Dargs="<PublicKeyDatabaseServer arguments here>"' -->
+		<echo>Running PublicKeyDatabaseServer: args=${args}</echo>
+		<java classpathref="classpath.runtime" classname="${public-key-database-server-class}" fork="true">
+			<arg line="${args}"/>
+		</java>		
+	</target>
+	
+	<target name="compile" description="Compile the java source code">
+		<echo>Compiling</echo>
+		<mkdir dir="${classes.dir}"/>
+		<javac debug="yes" destdir="${classes.dir}" classpathref="classpath">
+			<src path="${src.dir}"/>
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile" description="Creates a jar for the project">
+		<echo>Creating project jar file</echo>
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+			<manifest>
+				<attribute name="Main-Class" value="${peerbook-client-class}"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="clean-build" depends="clean,jar" description="Performs a clean and then a rebuild"/>
+
+	<target name="main" depends="compile" description="Main entry point compiles the source">
+		<mkdir dir="${jar.dir}"/>
+	</target>
+
+	<target name="javadoc" description="Generates the javadoc for the project and places it in ${javadoc.dir}">
+ 		<javadoc destdir="${javadoc.dir}" 
+			sourcepath="${src.dir}"
+			header="${javadoc.header}"
+			packagenames="*" 
+			excludepackagenames="${javadoc.exclude}">
+		</javadoc>
+	</target>
+</project>
